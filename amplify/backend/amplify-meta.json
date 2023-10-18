@@ -1,0 +1,250 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-riturnit-staging-74549-authRole",
+      "UnauthRoleArn": "arn:aws:iam::948075589612:role/amplify-riturnit-staging-74549-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::948075589612:role/amplify-riturnit-staging-74549-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-riturnit-staging-74549-deployment",
+      "UnauthRoleName": "amplify-riturnit-staging-74549-unauthRole",
+      "StackName": "amplify-riturnit-staging-74549",
+      "StackId": "arn:aws:cloudformation:us-east-1:948075589612:stack/amplify-riturnit-staging-74549/6a727680-b997-11ed-92a2-1236ffa096a1",
+      "AmplifyAppId": "d1d09e4lv2qgcb",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    }
+  },
+  "api": {
+    "StripeWebHooks": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "StripeWebHooks"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "StriipeIdentityHook"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway",
+      "output": {
+        "ApiName": "StripeWebHooks",
+        "RootUrl": "https://tp4y4mvmd5.execute-api.us-east-1.amazonaws.com/staging",
+        "ApiId": "tp4y4mvmd5"
+      },
+      "lastPushTimeStamp": "2023-08-05T23:31:24.509Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/api/StripeWebHooks-cloudformation-template.json",
+        "logicalId": "apiStripeWebHooks"
+      },
+      "lastPushDirHash": "/XGWezUUIKIqNI79GNqzhnDbeKA="
+    },
+    "riturnit": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDate": "2023-08-11T22:45:29.149Z",
+              "apiKeyExpirationDays": 60,
+              "description": "riturniT"
+            },
+            "authenticationType": "API_KEY"
+          }
+        },
+        "GraphQLAPIIdOutput": "4mr42q4d4vcc7j5tem3fuhqucq",
+        "GraphQLAPIEndpointOutput": "https://y7tv5cxtkzhcbmj4p6nqj426vu.appsync-api.us-east-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-ilahxlisfjg7biswp6ddao7pyi"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "lastPushTimeStamp": "2023-08-05T23:31:24.511Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiriturnit"
+      },
+      "lastPushDirHash": "fTb5/5Fl6Syl+9/9qcgnHvAZK28="
+    }
+  },
+  "auth": {
+    "RITURNIT": {
+      "customAuth": false,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "RITURNITPostConfirmation",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "NAME",
+          "EMAIL"
+        ],
+        "socialProviders": [
+          "GOOGLE"
+        ],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "UserPoolId": "us-east-1_t5aJHHNs2",
+        "AppClientIDWeb": "62ot0ivr7pu7db3bda3b3nq54p",
+        "AppClientID": "61legbrfh62uv5u2i3qshnbhbe",
+        "HostedUIDomain": "kwz1hij9oin8-staging",
+        "IdentityPoolId": "us-east-1:5747a1a3-22ec-49bf-91e4-19251db7f6cb",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:948075589612:userpool/us-east-1_t5aJHHNs2",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"riturnit://\"],\"LogoutURLs\":[\"riturnit://\"]}",
+        "UserPoolName": "RITURNIT"
+      },
+      "lastPushTimeStamp": "2023-08-05T23:31:24.513Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/auth/RITURNIT-cloudformation-template.json",
+        "logicalId": "authRITURNIT"
+      },
+      "lastPushDirHash": "cjHMUpW4nK3bQD/F5MRs6jNJCj4="
+    }
+  },
+  "function": {
+    "RITURNITPostConfirmation": {
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "riturnit",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::948075589612:role/RITURNITPostConfirmation-staging",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:948075589612:function:RITURNITPostConfirmation-staging",
+        "Name": "RITURNITPostConfirmation-staging",
+        "LambdaExecutionRole": "RITURNITPostConfirmation-staging"
+      },
+      "lastPushTimeStamp": "2023-08-05T23:31:25.702Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/function/RITURNITPostConfirmation-cloudformation-template.json",
+        "logicalId": "functionRITURNITPostConfirmation"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-riturnit-staging-74549-deployment",
+        "s3Key": "amplify-builds/RITURNITPostConfirmation-6635796332696d665157-build.zip"
+      },
+      "lastBuildTimeStamp": "2023-08-05T23:28:29.182Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-08-05T23:28:30.137Z",
+      "distZipFilename": "RITURNITPostConfirmation-6635796332696d665157-build.zip",
+      "lastPushDirHash": "IH8idTVZ94T0bn/a8xDxzVocR8U="
+    },
+    "StriipeIdentityHook": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::948075589612:role/riturnitLambdaRole18348071-staging",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:948075589612:function:StriipeIdentityHook-staging",
+        "Name": "StriipeIdentityHook-staging",
+        "LambdaExecutionRole": "riturnitLambdaRole18348071-staging"
+      },
+      "lastPushTimeStamp": "2023-08-05T23:31:24.515Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/function/StriipeIdentityHook-cloudformation-template.json",
+        "logicalId": "functionStriipeIdentityHook"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-riturnit-staging-74549-deployment",
+        "s3Key": "amplify-builds/StriipeIdentityHook-616e4e4574366a715453-build.zip"
+      },
+      "lastBuildTimeStamp": "2023-08-05T22:59:43.030Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-08-05T22:59:43.118Z",
+      "distZipFilename": "StriipeIdentityHook-616e4e4574366a715453-build.zip",
+      "lastPushDirHash": "26pPU5FBrUApW+vSueu531gITIM="
+    },
+    "StripeWebHooks": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::948075589612:role/riturnitLambdaRolee9dba927-staging",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:948075589612:function:StripeWebHooks-staging",
+        "Name": "StripeWebHooks-staging",
+        "LambdaExecutionRole": "riturnitLambdaRolee9dba927-staging"
+      },
+      "lastPushTimeStamp": "2023-08-05T23:31:24.517Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/function/StripeWebHooks-cloudformation-template.json",
+        "logicalId": "functionStripeWebHooks"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-riturnit-staging-74549-deployment",
+        "s3Key": "amplify-builds/StripeWebHooks-6644442b61736a31736c-build.zip"
+      },
+      "lastBuildTimeStamp": "2023-08-05T22:59:45.308Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-08-05T22:59:45.338Z",
+      "distZipFilename": "StripeWebHooks-6644442b61736a31736c-build.zip",
+      "lastPushDirHash": "I79uSVgE1b9a1v1YMXE9WVTksHg="
+    }
+  },
+  "storage": {
+    "s36601dd13": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3",
+      "output": {
+        "BucketName": "riturnit72c94b6305774dbe9fbc57ff6a3e95f474549-staging",
+        "Region": "us-east-1"
+      },
+      "lastPushTimeStamp": "2023-08-05T23:31:24.518Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-riturnit-staging-74549-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages36601dd13"
+      },
+      "lastPushDirHash": "WTRQdCACfkqpFlFnli17BfRZ1gs="
+    }
+  }
+}
