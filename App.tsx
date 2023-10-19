@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-import {Amplify} from 'aws-amplify';
+import {Amplify, Auth} from 'aws-amplify';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import * as dayjs from 'dayjs';
@@ -24,6 +24,7 @@ import ReturnContextProvider from './src/context/ReturnContext';
 import AppNav from './src/components/navigation/AppNav';
 import Client from './src/apollo/Client';
 import UserLocationContextProvider from './src/context/UserLocationContext';
+// import { withAuthenticator } from '@aws-amplify/ui-react-native'
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
@@ -45,11 +46,12 @@ const urlOpener = async (url: string, redirectUrl: string) => {
 const updateConfig = {
   ...config,
   oauth: {
-    ...config.oauth,
+    // ...config.oauth,
     urlOpener,
   },
 };
 Amplify.configure(updateConfig);
+Auth.configure(updateConfig);
 
 const App = () => {
   const [onBoarded, setOnBoarded] = useState(null);
