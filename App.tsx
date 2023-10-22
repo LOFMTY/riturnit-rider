@@ -1,7 +1,7 @@
 // App.js
 import 'react-native-gesture-handler';
 import React, {useEffect, useState} from 'react';
-import {Alert, Linking} from 'react-native';
+import {Alert, Linking, Text, View} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Orientation from 'react-native-orientation-locker';
@@ -25,6 +25,7 @@ import AppNav from './src/components/navigation/AppNav';
 import Client from './src/apollo/Client';
 import UserLocationContextProvider from './src/context/UserLocationContext';
 // import { withAuthenticator } from '@aws-amplify/ui-react-native'
+import { API } from '@aws-amplify/api'
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
@@ -46,12 +47,14 @@ const urlOpener = async (url: string, redirectUrl: string) => {
 const updateConfig = {
   ...config,
   oauth: {
-    // ...config.oauth,
+    ...config.oauth,
     urlOpener,
   },
 };
 Amplify.configure(updateConfig);
 Auth.configure(updateConfig);
+
+API.configure(updateConfig)
 
 const App = () => {
   const [onBoarded, setOnBoarded] = useState(null);
@@ -90,6 +93,7 @@ const App = () => {
     <Provider store={store}>
       <AuthContextProvider>
         <Client>
+
           <UserLocationContextProvider>
             <ReturnContextProvider>
               <SafeAreaProvider>

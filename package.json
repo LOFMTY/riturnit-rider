@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.4",
-    "@aws-amplify/ui-react-native": "^1.2.4",
     "@azure/core-asynciterator-polyfill": "^1.0.2",
     "@gorhom/bottom-sheet": "^4.4.5",
     "@lowkey/react-native-open-sms": "^0.1.1",

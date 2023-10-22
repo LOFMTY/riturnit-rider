@@ -1,0 +1,15 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-riturnit-dev-60852-authRole",
+      "UnauthRoleArn": "arn:aws:iam::948075589612:role/amplify-riturnit-dev-60852-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::948075589612:role/amplify-riturnit-dev-60852-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-riturnit-dev-60852-deployment",
+      "UnauthRoleName": "amplify-riturnit-dev-60852-unauthRole",
+      "StackName": "amplify-riturnit-dev-60852",
+      "StackId": "arn:aws:cloudformation:us-east-1:948075589612:stack/amplify-riturnit-dev-60852/563178d0-7088-11ee-b32f-0e8be36a1935",
+      "AmplifyAppId": "dsfmtxrk24ev0"
+    }
+  }
+}
