@@ -48,7 +48,6 @@ const SignIn = () => {
       } else {
         Alert.alert('Oops', (error as Error).message);
       }
-      console.log(877, error)
     } finally {
       setLoading(false);
       reset();
