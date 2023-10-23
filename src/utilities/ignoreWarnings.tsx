@@ -35,5 +35,5 @@ if (__DEV__) {
   //   warn(...arg);
   // };
 
-  LogBox.ignoreLogs(ignoreWarns);
+  // LogBox.ignoreLogs(ignoreWarns);
 }

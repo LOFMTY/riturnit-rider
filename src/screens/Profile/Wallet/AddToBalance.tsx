@@ -114,8 +114,14 @@ const AddToBalance = ({appTheme}: any) => {
             if (selectedAmount?.id == 4) {
               setModalVisible(!modalVisible);
             } else {
-              // selectedOption: selectedAmount?.amount,
-              // navigation.navigate('Payment');
+              Alert.alert(
+                `${selectedAmount?.amount} will be added to your wallet.`,
+                'Do you wish to continue?',
+                [
+                  { text: 'No', style: 'destructive' },
+                  { text: 'Yes', onPress: () => navigation.navigate('Payment') }
+                ]
+              );
             }
           }}
         />
@@ -137,9 +143,9 @@ const AddToBalance = ({appTheme}: any) => {
 
       <InputCustomAmountModal
         visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
+        onRequestClose={(amount: number) => {
+          setModalVisible(!modalVisible)
+          navigation.navigate('Payment')
         }}
         noCancel={() => {
           setModalVisible(!modalVisible);

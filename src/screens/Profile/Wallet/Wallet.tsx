@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {connect} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -15,31 +15,58 @@ import {
   SelectPaymentType,
   AddCardPayment,
 } from '../../../components';
+import FastImage from 'react-native-fast-image';
+
+const methods = [
+  {
+    id: '1',
+    icon: icons.cash2,
+    iconSizes: {
+      width: 20,
+      height: 16,
+    },
+    title: 'Cash',
+  },
+  {
+    id: '2',
+    icon: icons.card,
+    iconSizes: {
+        width: 20,
+        height: 16,
+    },
+    title: 'Credit or debit card'
+  },
+]
 
 const Wallet = ({appTheme}: any) => {
   const navigation = useNavigation<any>();
 
   const [selectedItem, setSelectedItem] = useState('');
   const [paymentMethods, setPaymentMethods] = useState<any>(
-    Array(constants.PaymentMethods)
-      .fill()
-      .map(_ => ({
-        id: uuidV4(),
-        img: require('../../../assets/icons/riturnitCash.png'),
-        label: `Riturnit Wallet`,
-        amount: 0.0,
-      })),
+    // Array(constants.PaymentMethods)
+    //   .fill()
+    //   .map(_ => ({
+    //     id: uuidV4(),
+    //     img: require('../../../assets/icons/riturnitCash.png'),
+    //     label: `Riturnit Wallet`,
+    //     amount: 0.0,
+    //   })),
   );
 
   const addCard = () => {
-    const newObj = {
-      id: uuidV4(),
-      img: require('../../../assets/icons/mastercard.png'),
-      label: '----2491',
-      amount: 0,
-    };
-    setPaymentMethods([...paymentMethods, newObj]);
-    storePaymentMethod([...paymentMethods, newObj]);
+    // const newObj = {
+    //   id: uuidV4(),
+    //   img: require('../../../assets/icons/mastercard.png'),
+    //   label: '----7948',
+    //   amount: 0,
+    //   cardNumber: '5257829585277948',
+    //   cvv: '230',
+    //   expiryDate: '02/25'
+    // };
+    // console.warn(222, [...paymentMethods, newObj])
+    // setPaymentMethods([...paymentMethods, newObj]);
+    // storePaymentMethod([...paymentMethods, newObj]);
+    navigation.navigate('PaymentMethod')
   };
 
   const deleteRow = (rowKey: string) => {
@@ -84,7 +111,11 @@ const Wallet = ({appTheme}: any) => {
     return () => {
       unmounted = true;
     };
-  }, []);
+  }, [])
+
+  const hasMethods = paymentMethods?.[0]
+
+  console.warn(paymentMethods)
 
   function renderPaymentMethods() {
     return (
@@ -99,18 +130,73 @@ const Wallet = ({appTheme}: any) => {
             color: appTheme.textColor,
             paddingLeft: SIZES.radius,
           }}>
-          Payment Methods
+          Payment Method
         </Text>
-
-        <SwipeListView
+        <View style={{
+            backgroundColor: 'white',
+            margin: 10,
+            borderRadius: 10,
+        }}>
+            {methods.map((e, i) => {
+              if (!hasMethods && i === 1) return null
+                return <TouchableOpacity
+                    activeOpacity={0.8}
+                    key={e.id} style={{
+                    borderBottomColor: '#F2F3F5',
+                    borderBottomWidth: !hasMethods ? 1 : i === methods.length - 1 ? 0 : 1,
+                }}>
+                    <SelectPaymentType
+                      label={e.title}
+                      iconSizes={e.iconSizes}
+                      paymentImage={e.icon}
+                      isSelected={selectedItem == e.id}
+                      onLongPress={() => {
+                        if (i === 1) {
+                          Alert.alert(
+                            'Delete?',
+                            'Do you wish to continue?',
+                            [
+                              { text: 'No', style: 'destructive' },
+                              { text: 'Yes', onPress: () => deleteRow(e.id) }
+                            ]
+                          );
+                        }
+                      }}
+                      onPress={() => {
+                        setSelectedItem(e.id)
+                      }}
+                    />
+                </TouchableOpacity>
+            })}
+            {!hasMethods && <TouchableOpacity
+                onPress={addCard}
+                activeOpacity={0.8}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  padding: 15
+                }}
+            >
+                <FastImage
+                  source={icons.plus}
+                  style={{
+                    width: 24,
+                    height: 24
+                  }}
+                />
+                <Text style={{fontWeight:'500',marginLeft: 10}}>Add payment method</Text>
+            </TouchableOpacity>}
+        </View>
+        {/* <SwipeListView
           data={[...(paymentMethods || getPaymentInfo())]}
           disableRightSwipe={true}
           rightOpenValue={-75}
-          keyExtractor={index => index.toString()}
+          keyExtractor={(_, index) => index.toString()}
           showsVerticalScrollIndicator={false}
-          renderItem={data => {
+          renderItem={(data) => {
             return (
               <SwipeRow
+                stopRightSwipe={data.index === 0 ? 1 : 0}
                 rightOpenValue={-75}
                 leftOpenValue={20 + Math.random() * 150}
                 disableRightSwipe={true}
@@ -147,13 +233,13 @@ const Wallet = ({appTheme}: any) => {
               </SwipeRow>
             );
           }}
-        />
+        /> */}
 
-        <AddCardPayment
+        {/* <AddCardPayment
           onPress={() => {
             addCard();
           }}
-        />
+        /> */}
       </View>
     );
   }

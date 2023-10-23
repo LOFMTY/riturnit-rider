@@ -136,6 +136,8 @@ const send = require('../assets/icons/send.png');
 const creditCard = require('../assets/icons/creditCard.png');
 const bin = require('../assets/icons/bin.png');
 const refer = require('../assets/icons/refer.png');
+const cash2 = require('../assets/icons/cash2.png');
+const card = require('../assets/icons/card.png');
 
 export default {
   back,
@@ -276,4 +278,6 @@ export default {
   suitcase,
   trash,
   barcodeScan,
+  cash2,
+  card
 };

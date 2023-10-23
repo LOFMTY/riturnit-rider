@@ -23,8 +23,9 @@ const InputCustomAmountModal = ({
   });
 
   const submitAmount = (data: any) => {
+    onRequestClose(data?.amount)
     // navigation.navigate('Profile', data);
-    // console.log('custom amount', data?.amount);
+    // console.warn('custom amount', data?.amount);
   };
 
   return (

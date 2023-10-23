@@ -11,6 +11,8 @@ const SelectPaymentType = ({
   label,
   paymentImage,
   onPress,
+  onLongPress,
+  iconSizes,
 }: any) => {
   return (
     <Pressable
@@ -24,6 +26,7 @@ const SelectPaymentType = ({
         justifyContent: 'center',
         height: 50,
       }}
+      onLongPress={onLongPress}
       onPress={onPress}>
       <View
         style={{
@@ -34,8 +37,8 @@ const SelectPaymentType = ({
         <FastImage
           source={paymentImage}
           style={{
-            width: 35,
-            height: 35,
+            width: iconSizes?.width || 35,
+            height: iconSizes?.height || 35,
           }}
         />
       </View>

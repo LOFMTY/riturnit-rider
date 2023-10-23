@@ -33,6 +33,8 @@ import {
   AutoRefill,
 } from '../../screens';
 import BottomTabs from './BottomTabs';
+import PaymentMethod from '../../screens/Profile/PaymentMethod';
+import AddCard from '../../screens/Profile/AddCard';
 
 const Stack = createSharedElementStackNavigator();
 const options: any = {
@@ -195,6 +197,16 @@ const AppStack = () => {
       <Stack.Screen
         name="ViewItems"
         component={ViewItems}
+        options={() => options}
+      />
+      <Stack.Screen
+        name="PaymentMethod"
+        component={PaymentMethod}
+        options={() => options}
+      />
+      <Stack.Screen
+        name="AddCard"
+        component={AddCard}
         options={() => options}
       />
     </Stack.Navigator>
