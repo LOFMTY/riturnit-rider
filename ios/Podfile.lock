@@ -669,6 +669,42 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
   - SocketRocket (0.6.1)
+  - Stripe (23.16.0):
+    - StripeApplePay (= 23.16.0)
+    - StripeCore (= 23.16.0)
+    - StripePayments (= 23.16.0)
+    - StripePaymentsUI (= 23.16.0)
+    - StripeUICore (= 23.16.0)
+  - stripe-react-native (0.33.0):
+    - React-Core
+    - Stripe (~> 23.16.0)
+    - StripeApplePay (~> 23.16.0)
+    - StripeFinancialConnections (~> 23.16.0)
+    - StripePayments (~> 23.16.0)
+    - StripePaymentSheet (~> 23.16.0)
+    - StripePaymentsUI (~> 23.16.0)
+  - StripeApplePay (23.16.0):
+    - StripeCore (= 23.16.0)
+  - StripeCore (23.16.0)
+  - StripeFinancialConnections (23.16.0):
+    - StripeCore (= 23.16.0)
+    - StripeUICore (= 23.16.0)
+  - StripePayments (23.16.0):
+    - StripeCore (= 23.16.0)
+    - StripePayments/Stripe3DS2 (= 23.16.0)
+  - StripePayments/Stripe3DS2 (23.16.0):
+    - StripeCore (= 23.16.0)
+  - StripePaymentSheet (23.16.0):
+    - StripeApplePay (= 23.16.0)
+    - StripeCore (= 23.16.0)
+    - StripePayments (= 23.16.0)
+    - StripePaymentsUI (= 23.16.0)
+  - StripePaymentsUI (23.16.0):
+    - StripeCore (= 23.16.0)
+    - StripePayments (= 23.16.0)
+    - StripeUICore (= 23.16.0)
+  - StripeUICore (23.16.0):
+    - StripeCore (= 23.16.0)
   - vision-camera-code-scanner (0.2.0):
     - GoogleMLKit/BarcodeScanning
     - React-Core
@@ -771,6 +807,7 @@ DEPENDENCIES:
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSharedElement (from `../node_modules/react-native-shared-element`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - "stripe-react-native (from `../node_modules/@stripe/stripe-react-native`)"
   - vision-camera-code-scanner (from `../node_modules/vision-camera-code-scanner`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -815,6 +852,14 @@ SPEC REPOS:
     - SDWebImage
     - SDWebImageWebPCoder
     - SocketRocket
+    - Stripe
+    - StripeApplePay
+    - StripeCore
+    - StripeFinancialConnections
+    - StripePayments
+    - StripePaymentSheet
+    - StripePaymentsUI
+    - StripeUICore
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -945,6 +990,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-shared-element"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  stripe-react-native:
+    :path: "../node_modules/@stripe/stripe-react-native"
   vision-camera-code-scanner:
     :path: "../node_modules/vision-camera-code-scanner"
   VisionCamera:
@@ -1059,6 +1106,15 @@ SPEC CHECKSUMS:
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
+  Stripe: fcab417424a45d995aa1e62a39bc942233b61ba3
+  stripe-react-native: fb59ade94b226d967c0473346985ee04a976e078
+  StripeApplePay: 81de266a964b3ad02fb25e8b22fd8c235d2916a8
+  StripeCore: ac141047bca25f5ae945a1cbdd00a90b0d08c616
+  StripeFinancialConnections: d7a452e4bed1195d8978ee4f6c0ba2f82c89fdf4
+  StripePayments: 5804cb9b02cca488042e5cf8cf57a86a5080006b
+  StripePaymentSheet: 06ea6bbf49be869769c46bf31be4fbc3e23b5b19
+  StripePaymentsUI: 24a0349ae8c7e8c7402086703720fe06c52ddea0
+  StripeUICore: ce85e040a22bf0335061d14973d37757528b3d2d
   vision-camera-code-scanner: dda884a7f3ec8243a2a6d6489b91860648371bca
   VisionCamera: be88fb063e04c7d0b81e2bbceca5ac51ea8a600c
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556

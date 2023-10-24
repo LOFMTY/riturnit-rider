@@ -26,8 +26,11 @@ import Client from './src/apollo/Client';
 import UserLocationContextProvider from './src/context/UserLocationContext';
 // import { withAuthenticator } from '@aws-amplify/ui-react-native'
 import { API } from '@aws-amplify/api'
+import { StripeProvider } from '@stripe/stripe-react-native'
 
 const store = createStore(reducers, applyMiddleware(thunk));
+
+const stripeKey = 'pk_test_51MdxGXHzF6NKvTnp9C5pMkvEslDVtNpjfNcmA64so2uSdx9FgYLomEjWF3JuwDJ2BpZZAgyKDoPr2qw6OFzhwaX600YRCmLfGL'
 
 // URL OPENER FOR GOOGLE & FACEBOOK AUTH
 const urlOpener = async (url: string, redirectUrl: string) => {
@@ -93,16 +96,20 @@ const App = () => {
     <Provider store={store}>
       <AuthContextProvider>
         <Client>
-
-          <UserLocationContextProvider>
-            <ReturnContextProvider>
-              <SafeAreaProvider>
-                <BottomSheetModalProvider>
-                  <AppNav onBoarded={onBoarded} />
-                </BottomSheetModalProvider>
-              </SafeAreaProvider>
-            </ReturnContextProvider>
-          </UserLocationContextProvider>
+          <StripeProvider
+            publishableKey={stripeKey}
+            merchantIdentifier={'merchant.com.riturnit.appname'}
+          >
+            <UserLocationContextProvider>
+              <ReturnContextProvider>
+                <SafeAreaProvider>
+                  <BottomSheetModalProvider>
+                    <AppNav onBoarded={onBoarded} />
+                  </BottomSheetModalProvider>
+                </SafeAreaProvider>
+              </ReturnContextProvider>
+            </UserLocationContextProvider>
+          </StripeProvider>
         </Client>
       </AuthContextProvider>
     </Provider>
