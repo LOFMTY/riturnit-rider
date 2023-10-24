@@ -7,7 +7,7 @@ import {v4 as uuidV4} from 'uuid';
 import {SwipeListView, SwipeRow} from 'react-native-swipe-list-view';
 import {ALERT_TYPE, Root, Toast} from 'react-native-alert-notification';
 
-import {SIZES, FONTS, icons, constants} from '../../../constants';
+import {SIZES, FONTS, icons, constants, COLORS} from '../../../constants';
 import {
   Header,
   WalletInfo,
@@ -115,8 +115,6 @@ const Wallet = ({appTheme}: any) => {
 
   const hasMethods = paymentMethods?.[0]
 
-  console.warn(paymentMethods)
-
   function renderPaymentMethods() {
     return (
       <View
@@ -133,7 +131,7 @@ const Wallet = ({appTheme}: any) => {
           Payment Method
         </Text>
         <View style={{
-            backgroundColor: 'white',
+            backgroundColor: appTheme.tabBackgroundColor,
             margin: 10,
             borderRadius: 10,
         }}>
@@ -184,7 +182,7 @@ const Wallet = ({appTheme}: any) => {
                     height: 24
                   }}
                 />
-                <Text style={{fontWeight:'500',marginLeft: 10}}>Add payment method</Text>
+                <Text style={{fontWeight:'500',marginLeft: 10, color: appTheme.textColor,}}>Add payment method</Text>
             </TouchableOpacity>}
         </View>
         {/* <SwipeListView

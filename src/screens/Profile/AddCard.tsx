@@ -98,7 +98,8 @@ const AddCard = ({appTheme, onPress}: any) => {
                     borderWidth: 1,
                     borderColor: '#DCDCDC',
                     marginHorizontal: 29,
-                    paddingLeft: 16
+                    paddingLeft: 16,
+                    color: appTheme.textColor
                 }}
                 placeholderTextColor={'#898A8D'}
             />
@@ -123,8 +124,10 @@ const AddCard = ({appTheme, onPress}: any) => {
                             borderWidth: 1,
                             borderColor: '#DCDCDC',
                             paddingLeft: 16,
+                            color: appTheme.textColor
                         }}
                         maxLength={5}
+                        placeholderTextColor={'#898A8D'}
                     />
                 </View>
                 <View style={{
@@ -144,7 +147,9 @@ const AddCard = ({appTheme, onPress}: any) => {
                             borderWidth: 1,
                             borderColor: '#DCDCDC',
                             paddingLeft: 16,
+                            color: appTheme.textColor
                         }}
+                        placeholderTextColor={'#898A8D'}
                     />
                 </View>
             </View>

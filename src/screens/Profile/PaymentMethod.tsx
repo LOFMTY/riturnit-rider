@@ -43,7 +43,7 @@ const PaymentMethod = ({appTheme, onPress}: any) => {
           titleContainerStyle={{alignItems: 'center', paddingRight: 30}}
         />
         <View style={{
-            backgroundColor: 'white',
+            backgroundColor: appTheme.tabBackgroundColor,
             margin: 30,
             paddingVertical: 19,
             borderRadius: 10,
@@ -67,7 +67,7 @@ const PaymentMethod = ({appTheme, onPress}: any) => {
                         alignItems: 'center',
                     }}>
                         <FastImage source={e.icon} style={{width: e.iconSizes.width, height: e.iconSizes.height}} />
-                        <Text style={{ fontSize: 14, fontWeight: '600', marginLeft: 12 }}>{e.title}</Text>
+                        <Text style={{ fontSize: 14, fontWeight: '600', marginLeft: 12, color: appTheme.textColor }}>{e.title}</Text>
                     </View>
                     <FastImage
                         source={icons.right}
