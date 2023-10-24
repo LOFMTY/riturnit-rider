@@ -119,7 +119,7 @@ const AddToBalance = ({appTheme}: any) => {
                 'Do you wish to continue?',
                 [
                   { text: 'No', style: 'destructive' },
-                  { text: 'Yes', onPress: () => navigation.navigate('Payment') }
+                  { text: 'Yes', onPress: () => navigation.navigate('Payment', { amount: selectedAmount?.amount }) }
                 ]
               );
             }
@@ -145,7 +145,7 @@ const AddToBalance = ({appTheme}: any) => {
         visible={modalVisible}
         onRequestClose={(amount: number) => {
           setModalVisible(!modalVisible)
-          navigation.navigate('Payment')
+          navigation.navigate('Payment', { amount })
         }}
         noCancel={() => {
           setModalVisible(!modalVisible);

@@ -35,6 +35,7 @@ import {
 import BottomTabs from './BottomTabs';
 import PaymentMethod from '../../screens/Profile/PaymentMethod';
 import AddCard from '../../screens/Profile/AddCard';
+import Payment from '../../screens/Profile/Payment';
 
 const Stack = createSharedElementStackNavigator();
 const options: any = {
@@ -207,6 +208,11 @@ const AppStack = () => {
       <Stack.Screen
         name="AddCard"
         component={AddCard}
+        options={() => options}
+      />
+      <Stack.Screen
+        name="Payment"
+        component={Payment}
         options={() => options}
       />
     </Stack.Navigator>
