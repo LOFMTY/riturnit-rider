@@ -16,6 +16,7 @@ import {COLORS, FONTS, SIZES, icons} from '../../constants';
 import {HomeHeader, StoreCard} from '../../components';
 import {ListStoresQuery, ListStoresQueryVariables} from '../../API';
 import {listStores} from '../../queries/Home/StoreQueries';
+import { Subscribtion } from './Subscribtion';
 
 const Home = ({appTheme}: any) => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -72,6 +73,7 @@ const Home = ({appTheme}: any) => {
           backgroundColor: appTheme.backgroundColor,
           marginTop: SIZES.radius,
         }}>
+          <Subscribtion />
         <Animated.FlatList
           data={filteredDataSource}
           onScroll={Animated.event(

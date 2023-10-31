@@ -8,6 +8,7 @@ import React, {
 import {Auth, Hub} from 'aws-amplify';
 import {HubCallback} from '@aws-amplify/core';
 import {CognitoUser} from 'amazon-cognito-identity-js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type UserType = CognitoUser | null | undefined;
 
@@ -62,6 +63,29 @@ const AuthContextProvider = ({children}: {children: ReactNode}) => {
     Hub.listen('auth', listener);
     return () => Hub.remove('auth', listener);
   }, []);
+
+  const setStripeKey = async () => {
+    const id = await AsyncStorage.getItem('stripe_id')
+    if (!id) {
+      const res = await fetch('https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/customers', {
+          method: 'POST',
+          headers: {
+            "x-api-key": "4L1FPSYjVH1ijKSNEZ9S31RraORx5tdH9a60tE5z"
+          },
+          body: JSON.stringify({
+            "email": authUser.attributes.email,
+            "name": authUser.attributes.name,
+            "phone": authUser.attributes.phone_number
+          })
+        })
+        const data = await res.json()
+        await AsyncStorage.setItem('stripe_id', data.data)
+      }
+  }
+
+  if (authUser) {
+    setStripeKey()
+  }
 
   return (
     <AuthContext.Provider

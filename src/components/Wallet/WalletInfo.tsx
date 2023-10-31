@@ -1,5 +1,5 @@
 import {View, Text} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
@@ -7,9 +7,43 @@ import {useNavigation} from '@react-navigation/native';
 import {SIZES, COLORS, FONTS, icons, images} from '../../constants';
 import WalletTabs from './WalletTabs';
 import TextButton from '../Buttons/TextButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const convertCentsToDollarsAndCents = (cents: number) => {
+  const dollars = Math.floor(cents / 100);
+  const remainingCents = cents % 100;
+
+  const formattedDollars = dollars.toFixed(0);
+  const formattedCents = remainingCents.toFixed(0);
+
+  let result = `${formattedDollars}`;
+
+  if (formattedCents !== '0') {
+    result += `,${formattedCents}`;
+  }
+
+  return result
+}
 
 const WalletInfo = ({appTheme}: any) => {
   const navigation = useNavigation<any>();
+
+  const [balance, setBalance] = useState(0)
+
+  const getUserBalance = async () => {
+    const stripe_id = await AsyncStorage.getItem('stripe_id')
+    const response = await fetch('https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/customers/' + stripe_id, {
+      headers: {
+        "x-api-key": "4L1FPSYjVH1ijKSNEZ9S31RraORx5tdH9a60tE5z"
+      },
+    })
+    const data = await response.json()
+    setBalance(data.data.balance)
+  }
+
+  useEffect(() => {
+    getUserBalance()
+  }, [])
 
   return (
     <View
@@ -55,7 +89,7 @@ const WalletInfo = ({appTheme}: any) => {
 
         {/* Wallet Amount */}
         <View style={{paddingHorizontal: SIZES.base, paddingTop: SIZES.base}}>
-          <Text style={{...FONTS.h3, color: appTheme.textColor}}>$500.00</Text>
+          <Text style={{...FONTS.h3, color: appTheme.textColor}}>${convertCentsToDollarsAndCents(balance)}</Text>
         </View>
 
         {/* Horizontal Tabs */}

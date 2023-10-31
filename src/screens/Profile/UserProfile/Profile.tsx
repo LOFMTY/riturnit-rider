@@ -29,6 +29,7 @@ import {
 } from '../../../API';
 import {deleteUser, getUser} from '../../../queries/Profile/UserQueries';
 import {useAuthContext} from '../../../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = ({appTheme, toggleTheme}: any) => {
   const navigation = useNavigation<ProfileStackNavigatorParamList>();
@@ -53,6 +54,7 @@ const Profile = ({appTheme, toggleTheme}: any) => {
     try {
       setIsLoading(true);
       await Auth.signOut({global: true});
+      await AsyncStorage.removeItem('stripe_id')
     } catch (error) {
       Alert.alert('Oops', (error as Error).message);
     } finally {

@@ -1,5 +1,5 @@
 import {View, FlatList, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
 import {useNavigation, useRoute} from '@react-navigation/native';
 
@@ -7,12 +7,49 @@ import {PaymentTab, Header} from '../../components';
 import {SIZES, dummyData, COLORS, icons} from '../../constants';
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import { PlatformPay, createPlatformPayPaymentMethod } from '@stripe/stripe-react-native';
+import { convertCentsToDollarsAndCents } from '../../components/Wallet/WalletInfo';
 
 const Payment = ({appTheme}: any) => {
   const navigation = useNavigation()
   const route = useRoute()
 
+  const [isPayed, setIsPayed] = useState(false)
+
   const amount = route?.params?.amount
+
+  const handleApplePay = async () => {
+    const { error, paymentMethod } = await createPlatformPayPaymentMethod({
+      applePay: {
+        cartItems: [
+          {
+            label: 'Acccount Balance',
+            amount: amount,
+            paymentType: PlatformPay.PaymentType.Immediate,
+          }
+        ],
+        merchantCountryCode: 'US',
+        currencyCode: 'USD',
+      },
+    });
+    if (!error) {
+      await fetch(`https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/payments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': '4L1FPSYjVH1ijKSNEZ9S31RraORx5tdH9a60tE5z'
+        },
+        body: JSON.stringify({
+          "payment_method": "pm_card_visa",
+          "amount": amount * 100,
+          "currency": "usd",
+          "paymentMetodType": "card",
+          "customerId": "cus_OtLuEKykGbs1LD"
+        })
+      });
+      setIsPayed(true)
+    }
+  }
 
   return (
     <View
@@ -22,7 +59,7 @@ const Payment = ({appTheme}: any) => {
       }}>
       <Header
         title=""
-        onPress={() => navigation.navigate('MyProfile')}
+        onPress={() => isPayed ? navigation.navigate('MyProfile') : navigation.goBack()}
         titleContainerStyle={{alignItems: 'center', paddingRight: 30}}
         type
       />
@@ -35,18 +72,20 @@ const Payment = ({appTheme}: any) => {
         <View style={{
             alignItems: 'center'
         }}>
-            <FastImage
+            {isPayed && <FastImage
                 source={icons.check_circle}
                 style={{
                     width: 160,
                     height: 160
                 }}
-            />
-            <Text>You have successfully added <Text style={{color: '#3580FF'}}>${amount}</Text></Text>
-            <Text>to your wallet</Text>
+            />}
+            {isPayed ? <View style={{alignItems: 'center'}}>
+              <Text>You have successfully added <Text style={{color: '#3580FF'}}>${amount}</Text></Text>
+              <Text>to your wallet</Text>
+            </View> : <Text>Click the "Pay" button and fund your account</Text>}
         </View>
         <TouchableOpacity
-            onPress={() => navigation.navigate('MyProfile')}
+            onPress={() => isPayed ? navigation.navigate('MyProfile') : handleApplePay()}
             style={{
                 marginBottom: 48
             }}
@@ -68,7 +107,7 @@ const Payment = ({appTheme}: any) => {
                     fontSize: 18,
                     color: 'white',
                     fontWeight: '700'
-                }}>Save</Text>
+                }}>{isPayed ? 'Save' : 'Pay'}</Text>
             </LinearGradient>
         </TouchableOpacity>
       </View>

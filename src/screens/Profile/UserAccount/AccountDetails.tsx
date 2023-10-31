@@ -63,6 +63,8 @@ const AccountDetails = ({appTheme}: any) => {
   );
   const userAccount = data?.getUser;
 
+  console.warn(992929, data)
+
   // UPDATE USER DETAILS
   const [doUpdateUser, {error, loading: updateLoading}] = useMutation<
     UpdateUserMutation,

@@ -96,20 +96,21 @@ const App = () => {
     <Provider store={store}>
       <AuthContextProvider>
         <Client>
-          <StripeProvider
-            publishableKey={stripeKey}
-            merchantIdentifier={'merchant.com.riturnit.appname'}
-          >
             <UserLocationContextProvider>
               <ReturnContextProvider>
                 <SafeAreaProvider>
                   <BottomSheetModalProvider>
-                    <AppNav onBoarded={onBoarded} />
+                    <StripeProvider
+                      publishableKey={stripeKey}
+                      merchantIdentifier={'merchant.com.riturnit.appname'}
+                      urlScheme={'riturnit://app'}
+                    >
+                      <AppNav onBoarded={onBoarded} />
+                    </StripeProvider>
                   </BottomSheetModalProvider>
                 </SafeAreaProvider>
               </ReturnContextProvider>
             </UserLocationContextProvider>
-          </StripeProvider>
         </Client>
       </AuthContextProvider>
     </Provider>
