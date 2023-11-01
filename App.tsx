@@ -29,8 +29,10 @@ import { API } from '@aws-amplify/api'
 import { StripeProvider } from '@stripe/stripe-react-native'
 
 const store = createStore(reducers, applyMiddleware(thunk));
-
-const stripeKey = 'pk_test_51MdxGXHzF6NKvTnp9C5pMkvEslDVtNpjfNcmA64so2uSdx9FgYLomEjWF3JuwDJ2BpZZAgyKDoPr2qw6OFzhwaX600YRCmLfGL'
+// DEV
+// const stripeKey = 'pk_test_51MdxGXHzF6NKvTnp9C5pMkvEslDVtNpjfNcmA64so2uSdx9FgYLomEjWF3JuwDJ2BpZZAgyKDoPr2qw6OFzhwaX600YRCmLfGL'
+// PROD
+const stripeKey = 'pk_live_51MdxGXHzF6NKvTnp2xuAW1ZATxmfREwtci4e6WB9Had48hSVDYJ86DEglB31JQsNhyJIkLT5iEALaJSduoXE50mB00cIrzvt1y'
 
 // URL OPENER FOR GOOGLE & FACEBOOK AUTH
 const urlOpener = async (url: string, redirectUrl: string) => {

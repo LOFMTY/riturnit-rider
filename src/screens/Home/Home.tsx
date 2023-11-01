@@ -6,6 +6,7 @@ import {
   RefreshControl,
   Alert,
   ActivityIndicator,
+  Text,
 } from 'react-native';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
@@ -17,6 +18,7 @@ import {HomeHeader, StoreCard} from '../../components';
 import {ListStoresQuery, ListStoresQueryVariables} from '../../API';
 import {listStores} from '../../queries/Home/StoreQueries';
 import { Subscribtion } from './Subscribtion';
+import { useAuthContext } from '../../context/AuthContext';
 
 const Home = ({appTheme}: any) => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -26,6 +28,9 @@ const Home = ({appTheme}: any) => {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
   const [masterDataSource, setMasterDataSource] = useState<any>([]);
+  const [subscribeId, setSubscribeId] = useState(null)
+
+  const {authUser, isLoading}: any = useAuthContext();
 
   // LIST STORES
   const {loading, data, refetch} = useQuery<
@@ -47,6 +52,22 @@ const Home = ({appTheme}: any) => {
       setSearch(text);
     }
   };
+
+  const getUserInfo = async () => {
+    const res = await fetch(`https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/user-by-email/` + authUser?.attributes?.email, {
+        headers: {
+          'x-api-key': '4L1FPSYjVH1ijKSNEZ9S31RraORx5tdH9a60tE5z'
+        },
+      });
+
+    const dat = await res.json()
+
+    setSubscribeId(dat?.data?.subscription_id)
+  }
+
+  useEffect(() => {
+    getUserInfo()
+  }, [setSubscribeId])
 
   useEffect(() => {
     let unmounted = false
@@ -73,7 +94,7 @@ const Home = ({appTheme}: any) => {
           backgroundColor: appTheme.backgroundColor,
           marginTop: SIZES.radius,
         }}>
-          <Subscribtion />
+          {subscribeId ? null : <Subscribtion />}
         <Animated.FlatList
           data={filteredDataSource}
           onScroll={Animated.event(

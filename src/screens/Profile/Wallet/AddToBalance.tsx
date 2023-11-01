@@ -10,6 +10,7 @@ import {
   TextButton,
   InputCustomAmountModal,
 } from '../../../components';
+import { useForm } from 'react-hook-form';
 
 const chooseAmount = constants.autoRefillAmount;
 
@@ -18,6 +19,17 @@ const AddToBalance = ({appTheme}: any) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState<any>(true);
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      amount: '',
+    },
+  });
 
   function renderTopSection() {
     return (
@@ -111,18 +123,33 @@ const AddToBalance = ({appTheme}: any) => {
           }}
           // onPress={() => navigation.goBack()}
           onPress={() => {
-            if (selectedAmount?.id == 4) {
-              setModalVisible(!modalVisible);
-            } else {
-              Alert.alert(
-                `${selectedAmount?.amount} will be added to your wallet.`,
-                'Do you wish to continue?',
-                [
-                  { text: 'No', style: 'destructive' },
-                  { text: 'Yes', onPress: () => navigation.navigate('Payment', { amount: selectedAmount?.amount }) }
-                ]
-              );
-            }
+              console.warn(selectedAmount)
+              if (selectedAmount?.id == 4) {
+                setModalVisible(!modalVisible);
+              } else {
+                if (selectedAmount.id === 4 && watch('amount').length >= 1) {
+                    Alert.alert(
+                    `${selectedAmount?.amount} will be added to your wallet.`,
+                    'Do you wish to continue?',
+                    [
+                      { text: 'No', style: 'destructive' },
+                      { text: 'Yes', onPress: () => navigation.navigate('Payment', { amount: selectedAmount?.amount }) }
+                    ]
+                  );
+                } else {
+                  if (selectedAmount.id >= 1) {
+                    Alert.alert(
+                      `${selectedAmount?.amount} will be added to your wallet.`,
+                      'Do you wish to continue?',
+                      [
+                        { text: 'No', style: 'destructive' },
+                        { text: 'Yes', onPress: () => navigation.navigate('Payment', { amount: selectedAmount?.amount }) }
+                      ]
+                    )
+                  }
+                }
+                
+              }
           }}
         />
       </View>
@@ -142,6 +169,10 @@ const AddToBalance = ({appTheme}: any) => {
       />
 
       <InputCustomAmountModal
+        control={control}
+        handleSubmit={handleSubmit}
+        errors={errors}
+
         visible={modalVisible}
         onRequestClose={(amount: number) => {
           setModalVisible(!modalVisible)

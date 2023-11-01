@@ -11,16 +11,20 @@ const InputCustomAmountModal = ({
   onRequestClose,
   visible,
   noCancel,
+
+  control,
+  handleSubmit,
+  errors,
 }: any) => {
-  const {
-    control,
-    handleSubmit,
-    formState: {errors},
-  } = useForm({
-    defaultValues: {
-      amount: '',
-    },
-  });
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   formState: {errors},
+  // } = useForm({
+  //   defaultValues: {
+  //     amount: '',
+  //   },
+  // });
 
   const submitAmount = (data: any) => {
     onRequestClose(data?.amount)

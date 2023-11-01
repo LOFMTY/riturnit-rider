@@ -9,6 +9,8 @@ import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { PlatformPay, createPlatformPayPaymentMethod } from '@stripe/stripe-react-native';
 import { convertCentsToDollarsAndCents } from '../../components/Wallet/WalletInfo';
+import { useAuthContext } from '../../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Payment = ({appTheme}: any) => {
   const navigation = useNavigation()
@@ -33,6 +35,7 @@ const Payment = ({appTheme}: any) => {
       },
     });
     if (!error) {
+      const stripe_id = await AsyncStorage.getItem('stripe_id')
       await fetch(`https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/payments`, {
         method: 'POST',
         headers: {
@@ -44,7 +47,7 @@ const Payment = ({appTheme}: any) => {
           "amount": amount * 100,
           "currency": "usd",
           "paymentMetodType": "card",
-          "customerId": "cus_OtLuEKykGbs1LD"
+          "customerId": stripe_id
         })
       });
       setIsPayed(true)
