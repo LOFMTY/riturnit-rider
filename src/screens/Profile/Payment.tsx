@@ -37,7 +37,7 @@ const Payment = ({appTheme}: any) => {
     if (!error) {
       const stripe_id = await AsyncStorage.getItem('stripe_id')
       await fetch(`https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/payments`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': '4L1FPSYjVH1ijKSNEZ9S31RraORx5tdH9a60tE5z'

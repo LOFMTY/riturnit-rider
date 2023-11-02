@@ -85,6 +85,16 @@ const Home = ({appTheme}: any) => {
     };
   }, [loading]);
 
+  if (loading || isLoading) {
+    return (
+      <ActivityIndicator
+        style={{flex: 1, justifyContent: 'center'}}
+        size={'large'}
+        color={COLORS.gradient2}
+      />
+    );
+  }
+
   //Store section Content
   function renderStoreSection() {
     return (
@@ -132,16 +142,6 @@ const Home = ({appTheme}: any) => {
           ListFooterComponent={<View style={{marginBottom: 900}} />}
         />
       </View>
-    );
-  }
-
-  if (loading) {
-    return (
-      <ActivityIndicator
-        style={{flex: 1, justifyContent: 'center'}}
-        size={'large'}
-        color={COLORS.gradient2}
-      />
     );
   }
 

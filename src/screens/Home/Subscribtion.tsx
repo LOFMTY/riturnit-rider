@@ -107,6 +107,7 @@ const selectPlan = async (plan: any) => {
         })
         const userDat = await userRes.json()
         const plan = userDat?.data?.subscription_id
+        await AsyncStorage.setItem('plansRead', 'true')
         await fetch(`https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/subscriptions/` + plan, {
             method: 'DELETE',
             headers: {
