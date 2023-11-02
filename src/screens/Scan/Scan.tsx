@@ -137,7 +137,7 @@ const Scan = ({appTheme}: any) => {
             isActive={true}
             device={device}
             enableZoomGesture
-            frameProcessor={frameProcessor}
+            // frameProcessor={frameProcessor}
             frameProcessorFps={5}
             torch={torch}
           />

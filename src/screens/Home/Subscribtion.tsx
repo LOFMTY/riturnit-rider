@@ -26,20 +26,44 @@ const plans = [
 ]
 
 export const Subscribtion = () => {
+    const [subscribeId, setSubscribeId] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
+    const [isLoadedUser, setIsLoadingUser] = useState(false)
     const {authUser, isLoading}: any = useAuthContext();
 
-    const handleShowPlans = async () => {
-        const plansRead = await AsyncStorage.getItem('plansRead')
-
-        if (!plansRead) {
-            setIsOpen(true)
+    const getUserInfo = async () => {
+        const res = await fetch(`https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/user-by-email/` + authUser?.attributes?.email, {
+            headers: {
+              'x-api-key': '4L1FPSYjVH1ijKSNEZ9S31RraORx5tdH9a60tE5z'
+            },
+          });
+    
+        const dat = await res.json()
+    
+        setSubscribeId(dat?.data?.subscription_id)
+        if (dat?.data?.subscription_id) {
+    
         }
-    }
-
-    useEffect(() => {
-        handleShowPlans()
-    }, [])
+        setIsLoadingUser(true)
+      }
+    
+      const handleShowPlans = async () => {
+          const plansRead = await AsyncStorage.getItem('plansRead')
+    
+          if (!plansRead) {
+              setIsOpen(true)
+          }
+      }
+    
+      useEffect(() => {
+          if (isLoadedUser && !subscribeId) {
+            handleShowPlans()
+          }
+      }, [subscribeId, isLoadedUser])
+    
+      useEffect(() => {
+        getUserInfo()
+      }, [setSubscribeId])
 
     const handleClcose = async () => {
         await AsyncStorage.setItem('plansRead', 'true')

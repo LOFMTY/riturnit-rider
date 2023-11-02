@@ -708,7 +708,7 @@ PODS:
   - vision-camera-code-scanner (0.2.0):
     - GoogleMLKit/BarcodeScanning
     - React-Core
-  - VisionCamera (2.16.4):
+  - VisionCamera (2.16.5):
     - React
     - React-callinvoker
     - React-Core
@@ -1116,10 +1116,10 @@ SPEC CHECKSUMS:
   StripePaymentsUI: 24a0349ae8c7e8c7402086703720fe06c52ddea0
   StripeUICore: ce85e040a22bf0335061d14973d37757528b3d2d
   vision-camera-code-scanner: dda884a7f3ec8243a2a6d6489b91860648371bca
-  VisionCamera: be88fb063e04c7d0b81e2bbceca5ac51ea8a600c
+  VisionCamera: 99dc0cb2770ab1a4bb0d8dc35d5961bb640767cd
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 45510dd69ccf86884730671e8a5827d116f0eaf6
+PODFILE CHECKSUM: e9da78c9287e90c494cab595f37864cd82c86852
 
 COCOAPODS: 1.12.1

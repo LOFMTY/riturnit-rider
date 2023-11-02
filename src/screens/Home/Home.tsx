@@ -19,6 +19,7 @@ import {ListStoresQuery, ListStoresQueryVariables} from '../../API';
 import {listStores} from '../../queries/Home/StoreQueries';
 import { Subscribtion } from './Subscribtion';
 import { useAuthContext } from '../../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({appTheme}: any) => {
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -29,6 +30,8 @@ const Home = ({appTheme}: any) => {
   const [filteredDataSource, setFilteredDataSource] = useState<any>([]);
   const [masterDataSource, setMasterDataSource] = useState<any>([]);
   const [subscribeId, setSubscribeId] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isLoadedUser, setIsLoadingUser] = useState(false)
 
   const {authUser, isLoading}: any = useAuthContext();
 
@@ -52,22 +55,6 @@ const Home = ({appTheme}: any) => {
       setSearch(text);
     }
   };
-
-  const getUserInfo = async () => {
-    const res = await fetch(`https://wrm646oi52lgkg4sncf3a5vte40daxhl.lambda-url.us-east-1.on.aws/user-by-email/` + authUser?.attributes?.email, {
-        headers: {
-          'x-api-key': '4L1FPSYjVH1ijKSNEZ9S31RraORx5tdH9a60tE5z'
-        },
-      });
-
-    const dat = await res.json()
-
-    setSubscribeId(dat?.data?.subscription_id)
-  }
-
-  useEffect(() => {
-    getUserInfo()
-  }, [setSubscribeId])
 
   useEffect(() => {
     let unmounted = false
@@ -104,7 +91,8 @@ const Home = ({appTheme}: any) => {
           backgroundColor: appTheme.backgroundColor,
           marginTop: SIZES.radius,
         }}>
-          {subscribeId ? null : <Subscribtion />}
+          {/* {subscribeId ? null : <Subscribtion isOpen={isOpen} setIsOpen={setIsOpen} />} */}
+          <Subscribtion />
         <Animated.FlatList
           data={filteredDataSource}
           onScroll={Animated.event(
